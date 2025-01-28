@@ -31,7 +31,7 @@ class Dev(Configuration):
   # SECURITY WARNING: don't run with debug turned on in production!
   DEBUG = True
 
-  ALLOWED_HOSTS = ['*']
+  ALLOWED_HOSTS = configurations.values.ListValue([])
   X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
   CSRF_COOKIE_SAMESITE = None
   CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io']
@@ -229,4 +229,7 @@ class Dev(Configuration):
           "level": "DEBUG",
       },
   }
+class Prod(Dev):
+    SECRET_KEY = configurations.values.SecretValue()
+    DEBUG = False
   
