@@ -31,7 +31,7 @@ class Dev(Configuration):
   # SECURITY WARNING: don't run with debug turned on in production!
   DEBUG = True
 
-  ALLOWED_HOSTS = configurations.values.ListValue([])
+  ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io"])
   X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
   CSRF_COOKIE_SAMESITE = None
   CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io']
@@ -53,13 +53,7 @@ class Dev(Configuration):
       'blog',
       'crispy_forms',
       "crispy_bootstrap5",
-      "debug_toolbar",
-      "allauth",
-      "allauth.account",
-      "allauth.socialaccount",
-      "allauth.socialaccount.providers.google",
-      "rest_framework",
-      "rest_framework.authtoken",
+    
   ]
 
   CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -230,6 +224,6 @@ class Dev(Configuration):
       },
   }
 class Prod(Dev):
-    SECRET_KEY = configurations.values.SecretValue()
+    SECRET_KEY = values.SecretValue()
     DEBUG = False
   
