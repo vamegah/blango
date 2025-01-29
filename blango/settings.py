@@ -42,7 +42,7 @@ class Dev(Configuration):
 
 
   # Application definition
-
+  AUTH_USER_MODEL = "blango_auth.User"
   INSTALLED_APPS = [
       'django.contrib.admin',
       'django.contrib.auth',
@@ -54,6 +54,8 @@ class Dev(Configuration):
       'crispy_forms',
       "crispy_bootstrap5",
       'debug_toolbar',
+      "blango_auth",
+    
     
   ]
 
