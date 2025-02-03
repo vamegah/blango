@@ -6,11 +6,9 @@ from blog.models import Post
 from django import template
 import logging
 
-
 user_model = get_user_model()
 register = template.Library()
 logger = logging.getLogger(__name__)
-
 
 @register.simple_tag(takes_context=True)
 def author_details_tag(context):
@@ -36,14 +34,21 @@ def author_details_tag(context):
 
     return format_html("{}{}{}", prefix, name, suffix)
 
-@register.simple_tag
+@register.simple_tag(takes_context=True)
 def row(extra_classes=""):
     return format_html('<div class="row {}">', extra_classes)
-
 
 @register.simple_tag
 def endrow():
     return format_html("</div>")
+    
+@register.simple_tag(takes_context=True)
+def col(context, extra_classes=""):
+  return format_html('<div class="col {}">', extra_classes)
+
+@register.simple_tag
+def endcol():
+  return format_html('</div>')
 
 @register.inclusion_tag("blog/post-list.html")
 def recent_posts(post):
