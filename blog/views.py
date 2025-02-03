@@ -22,12 +22,12 @@ def index(request):
   from django.http import HttpResponse
   return HttpResponse(str(request.user).encode("ascii"))
   posts = Post.objects.filter(published_at__lte=timezone.now()).select_related("author")
-  logger.debug("Got %d posts", len(posts))
+  logger.debug("%s Got %d posts", __name__, len(posts))
   return render(request, "blog/index.html", {"posts": posts})
 
 def post_detail(request, slug):
   post = get_object_or_404(Post, slug=slug)
-  logger.debug("Got %d posts", len(posts))
+  logger.debug("%s Got %d posts", __name__, len(posts))
   if request.user.is_active:
     if request.method == "POST":
       comment_form = CommentForm(request.POST)
